@@ -1,0 +1,30 @@
+form {
+    width: 100vw; /* Default to 100vw for small screens */
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  @media (min-width:640px) {
+    form{width: 33%}
+  }
+  .label-input-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Full width for each input container */
+    margin-bottom: 0.5rem;
+  }
+  
+  label {
+    margin-bottom: 0.5rem;
+  }
+  
+  input {
+    padding: 0.6rem 0.5rem;
+    border-radius: 0.375rem;
+    border: 1px solid var(--color-secondary-gray);
+    width: 100%; /* Make inputs full width */
+  }
+  
