@@ -1,5 +1,4 @@
 require("dotenv").config();
-
 const express = require('express');
 const mongoose = require('mongoose');
 const adminsRoutes = require('./routes/admins');
@@ -17,6 +16,7 @@ const app = express();
 
 // middleware
 app.use(express.json());
+
 
 app.use((req, res, next) => { // prints all requests
   console.log(req.path, req.method); 

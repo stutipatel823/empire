@@ -1,49 +1,55 @@
-import React, { useState } from "react";
-import Figure from "../assets/Figure1.png"; // Adjust path to the new location
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'; // Updated import path for Heroicons v2
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"; // Updated import path for Heroicons v2
 
 export default function HomeScreen() {
   const [activeButton, setActiveButton] = useState("Best Sellers");
+  const [products, setProducts] = useState(null);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await fetch('/api/products')
+      const json = await response.json();
+      if (response.ok){
+        setProducts(json);
+        console.log(products);
+      }
+    }
+  
+    fetchProducts();
+  }, [])
 
-  const products = [
-    {
-      id: "1",
-      name: "Chopard Happy",
-      price: "$249.00",
-      image: Figure, // Update this path to a valid image URL
-    },
-    {
-      id: "2",
-      name: "Chopard Happy",
-      price: "$249.00",
-      image: Figure, // Update this path to a valid image URL
-    },
-    {
-      id: "3",
-      name: "Chopard Happy",
-      price: "$249.00",
-      image: Figure, // Update this path to a valid image URL
-    },
-    {
-      id: "4",
-      name: "Chopard Happy",
-      price: "$249.00",
-      image: Figure, // Update this path to a valid image URL
-    },
-    {
-      id: "5",
-      name: "Chopard Happy",
-      price: "$249.00",
-      image: Figure, // Update this path to a valid image URL
-    },
-    {
-      id: "6",
-      name: "Chopard Happy",
-      price: "$249.00",
-      image: Figure, // Update this path to a valid image URL
-    },
-    // Add more products as needed
-  ];
+  // const products = [
+  //   {
+  //     id: "1",
+  //     name: "Chopard Happy",
+  //     price: 249.0,
+  //     image: "/assets/cluthes-gucci-marmount-mini-bag-black.avif",
+  //   },
+  //   {
+  //     id: "2",
+  //     name: "Chopard Happy",
+  //     price: 249.0,
+  //     image: "/assets/handbags-hermes-kelly-bag-orange.avif",
+  //   },
+  //   {
+  //     id: "3",
+  //     name: "Chopard Happy",
+  //     price: 249.0,
+  //     image: "/assets/handbangs-chanel-classic-flap-bag-beige.avif",
+  //   },
+  //   {
+  //     id: "4",
+  //     name: "Chopard Happy",
+  //     price: 249.0,
+  //     image: "/assets/totes-louis-vuitton-neverfull-mm-monogram-totes-red.avif",
+  //   },
+  //   {
+  //     id: "5",
+  //     name: "Chopard Happy",
+  //     price: 249.0,
+  //     image: "/assets/handbangs-chanel-classic-flap-bag-white.avif",
+  //   },
+  // ];
 
   return (
     <div className="p-4">
@@ -94,22 +100,28 @@ export default function HomeScreen() {
 
       {/* Product Grid */}
       <div className="grid grid-cols-2">
-        {products.map((product, index) => (
-          <div
-            className={`py-10 text-center border-b border-gray-300 ${
-              index % 2 === 0 ? "border-r border-gray-300" : ""
-            }`}
-            key={product.id}
-          >
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-28 sm:h-48 object-contain mb-2"
-            />
-            <p className=" text-xl sm:text-2xl font-light">{product.name}</p>
-            <p className=" text-md sm:text-lg text-secondary-gray font-semibold">{product.price}</p>
-          </div>
-        ))}
+        {products &&
+          products.map((product, index) => (
+            <div
+              key={product._id}
+              className={`py-10 cursor-pointer border-b border-gray-300 ${
+                index % 2 === 0 ? "border-r border-gray-300" : ""
+              }`}
+              onClick={(e)=>{<a href='/cart'className=""></a>}}
+            >
+              <div className="ml-5">
+                <p className="text-lg sm:text-2xl font-light">{product.name}</p>
+                <p className=" text-md sm:text-lg text-secondary-gray font-semibold">
+                  ${product.price}
+                </p>
+                <img
+                  src={`/assets/${product.images[0]}`}
+                  alt={product.name}
+                  className="h-28 sm:h-48 object-contain my-2 sm:w-fit"
+                />
+              </div>
+            </div>
+          ))}
       </div>
     </div>
   );

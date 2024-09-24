@@ -79,8 +79,11 @@ function ProfilePage() {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center p-2">
-    <h1>Profile</h1>
+    <div
+      className="flex flex-col items-center justify-center p-2"
+      style={{ maxHeight: "calc(100vh - 100px)" }}
+    >
+      <h1 className="text-3xl font-bold text-center mb-6">Profile👤</h1>
       <form className="profile-form" onSubmit={handleSubmit}>
         {inputs.map((item) => (
           <div className="label-input-container" key={item.id}>
@@ -97,8 +100,15 @@ function ProfilePage() {
             {/* {item.errorMessage && <span className="error-message">{item.errorMessage}</span>} */}
           </div>
         ))}
-        <button type="submit" className="w-1/2 py-3 rounded-md bg-primary-dark text-white hover:bg-opacity-90">Save Changes</button>
-        <a href="/changepassword" className="text-sm underline mt-2">Change Password?</a>
+        <button
+          type="submit"
+          className="w-1/2 py-3 rounded-md bg-primary-dark text-white hover:bg-opacity-90"
+        >
+          Save Changes
+        </button>
+        <a href="/changepassword" className="text-sm underline mt-2">
+          Change Password?
+        </a>
       </form>
     </div>
   );

@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Gucci Marmont Mini Bag",
+    "brand": "Gucci",
+    "category": "Clutches",
+    "price": 1200,
+    "stock": 10,
+    "images": ["clutches-gucci-marmount-mini-bag-black.avif"],
+    "color": "Black",
+    "ratings": [],
+    "averageRating": 0,
+    "numReviews": 0
+  },
+  {
+    "name": "Hermes Kelly Bag",
+    "brand": "Hermes",
+    "category": "Handbags",
+    "price": 8000,
+    "stock": 5,
+    "images": ["handbags-hermes-kelly-bag-orange.avif"],
+    "color": "Orange",
+    "ratings": [],
+    "averageRating": 0,
+    "numReviews": 0
+  },
+  {
+    "name": "Chanel Classic Flap Bag (Beige)",
+    "brand": "Chanel",
+    "category": "Handbags",
+    "price": 3500,
+    "stock": 8,
+    "images": ["handbangs-chanel-classic-flap-bag-beige1.avif"],
+    "color": "Beige",
+    "ratings": [],
+    "averageRating": 0,
+    "numReviews": 0
+  },
+  {
+    "name": "Chanel Classic Flap Bag (White)",
+    "brand": "Chanel",
+    "category": "Handbags",
+    "price": 3600,
+    "stock": 6,
+    "images": ["handbangs-chanel-classic-flap-bag-white.avif"],
+    "color": "White",
+    "ratings": [],
+    "averageRating": 0,
+    "numReviews": 0
+  },
+  {
+    "name": "Louis Vuitton Neverfull MM Monogram",
+    "brand": "Louis Vuitton",
+    "category": "Totes",
+    "price": 1500,
+    "stock": 15,
+    "images": ["totes-louis-vuitton-neverfull-mm-monogram-totes-red1.avif"],
+    "color": "Red",
+    "ratings": [],
+    "averageRating": 0,
+    "numReviews": 0
+  },
+  {
+    "name": "Prada Saffiano Leather Tote",
+    "brand": "Prada",
+    "category": "Totes",
+    "price": 2000,
+    "stock": 12,
+    "images": ["totes-prada-saffiano-leather-tote-black.avif"],
+    "color": "Black",
+    "ratings": [],
+    "averageRating": 0,
+    "numReviews": 0
+  }
+]

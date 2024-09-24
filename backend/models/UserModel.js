@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const UserSchema = Schema({
+const UserSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -29,16 +29,20 @@ const UserSchema = Schema({
     country: String,
   },
   phoneNumber: String,
-  wishList: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
-    },
-  ],
+  wishlist: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Wishlist',
+  },
   orders: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Order',
   }],
+  cart: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Cart',
+  },
 }, { timestamps: true });
+
+
 
 module.exports = mongoose.model('User', UserSchema);

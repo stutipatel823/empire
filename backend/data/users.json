@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Jane Doe",
+    "email": "jane@example.com",
+    "password": "jane1",
+    "isAdmin": false
+  },
+  {
+    "name": "John Smith",
+    "email": "john@example.com",
+    "password": "john1",
+    "isAdmin": false
+  },
+  {
+    "name": "Alice Johnson",
+    "email": "alice@example.com",
+    "password": "alice1",
+    "isAdmin": false
+  },
+  {
+    "name": "Bob Brown",
+    "email": "bob@example.com",
+    "password": "bob1",
+    "isAdmin": false
+  },
+  {
+    "name": "Carol White",
+    "email": "carol@example.com",
+    "password": "carol1",
+    "isAdmin": false
+  }
+]
