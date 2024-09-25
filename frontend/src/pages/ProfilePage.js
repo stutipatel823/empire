@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/formstyles.css"; // Make sure the path is correct
+import "../styles/FormStyles.css"; // Make sure the path is correct
 
 function ProfilePage() {
   const [name, setName] = useState("");

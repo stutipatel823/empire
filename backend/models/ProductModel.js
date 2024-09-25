@@ -41,15 +41,18 @@ const ProductSchema = new Schema({
       comment: String,
     },
   ],
-  averageRating:{
-    type:Number,
-    default:0,
+  // Updated field
+  averageRating: {
+    type: Number,  // Automatically handles float numbers
+    default: 0,
+    min: 0,        // Ensure it's out of 5
+    max: 5,
   },
-  numReviews:{
+  numReviews: {
     type: Number,
     default: 0,
   },
+  description: { type: String, required: true }, // Add this line
 }, { timestamps: true });
 
 module.exports = mongoose.model('Product', ProductSchema);
-

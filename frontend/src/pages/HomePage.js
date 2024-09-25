@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"; // Updated import path for Heroicons v2
 
 export default function HomeScreen() {
+  const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState("Best Sellers");
   const [products, setProducts] = useState(null);
   useEffect(() => {
@@ -104,10 +105,10 @@ export default function HomeScreen() {
           products.map((product, index) => (
             <div
               key={product._id}
-              className={`py-10 cursor-pointer border-b border-gray-300 ${
+              className={`py-10 bg-red-400 cursor-pointer border-b border-gray-300 ${
                 index % 2 === 0 ? "border-r border-gray-300" : ""
               }`}
-              onClick={(e)=>{<a href='/cart'className=""></a>}}
+              onClick={(e)=>{navigate('/product')}}
             >
               <div className="ml-5">
                 <p className="text-lg sm:text-2xl font-light">{product.name}</p>

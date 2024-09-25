@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { HomeIcon, ShoppingCartIcon, HeartIcon, UserIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, ShoppingBagIcon, HeartIcon, UserIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -32,7 +32,7 @@ function Navbar() {
         {/* Navigation Links (Hidden on small screens) */}
         <div className="hidden sm:flex space-x-6 items-center">
           <Link to="/cart" className="flex items-center space-x-1 text-primary-dark hover:text-secondary-accent">
-            <ShoppingCartIcon className="h-6 w-6" />
+            <ShoppingBagIcon className="h-6 w-6" />
             <span>Cart</span>
           </Link>
           <Link to="/wishlist" className="flex items-center space-x-1 text-primary-dark hover:text-secondary-accent">
@@ -56,7 +56,7 @@ function Navbar() {
             </button>
 
             <Link to="/cart" className="text-primary-dark hover:text-secondary-accent text-2xl" onClick={toggleMobileMenu}>
-              <ShoppingCartIcon className="h-8 w-8 inline-block" />
+              <ShoppingBagIcon className="h-8 w-8 inline-block" />
               <span className="ml-2">Cart</span>
             </Link>
             <Link to="/wishlist" className="text-primary-dark hover:text-secondary-accent text-2xl" onClick={toggleMobileMenu}>

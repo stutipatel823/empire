@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/formstyles.css"; // Ensure the path is correct
+import "../styles/FormStyles.css"; // Ensure the path is correct
 import AlertModal from "../components/modal/AlertModal";
 
 function ChangePasswordPage() {
