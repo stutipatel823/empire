@@ -128,36 +128,37 @@ export default function WishlistScreen() {
     <div className="p-1 sm:p-4 min-h-screen">
       <h1 className="text-3xl font-bold text-center mb-6">Wishlist ❤️</h1>
       <div className="sm:space-y-4">
-        {wishlistItems && wishlistItems.map((item, index) => (
-          <div
-            className="flex items-center justify-between p-3 sm:p-4 border-y-secondary-light-gray border-b"
-            key={item._id} // Use a unique identifier if available
-          >
-            <img
-              src={`/assets/${products[index].images[0]}`} // Optional chaining if needed
-              alt={products[index].name}
-              className="w-20 h-20 sm:w-24 sm:h-24 object-contain"
-            />
-            <div className="flex-1 ml-4">
-              <p className="text-lg sm:text-2xl sm:font-light">
-                {products[index].name}
-              </p>
-              <p className="text-sm sm:text-lg font-semibold text-secondary-gray">
-                ${products[index].price}
-              </p>
+        {wishlistItems &&
+          wishlistItems.map((item, index) => (
+            <div
+              className="flex items-center justify-between p-3 sm:p-4 border-y-secondary-light-gray border-b"
+              key={item._id} // Use a unique identifier if available
+            >
+              <img
+                src={`/assets/${products[index].images[0]}`} // Optional chaining if needed
+                alt={products[index].name}
+                className="w-20 h-20 sm:w-24 sm:h-24 object-contain"
+              />
+              <div className="flex-1 ml-4">
+                <p className="text-lg sm:text-2xl sm:font-light">
+                  {products[index].name}
+                </p>
+                <p className="text-sm sm:text-lg font-semibold text-secondary-gray">
+                  ${products[index].price}
+                </p>
+              </div>
+              <div className="flex space-x-2">
+                <button className="flex p-1 text-sm sm:text-base space-x-1 sm:px-4 sm:py-2 bg-primary-dark text-white rounded-md hover:bg-opacity-90">
+                  <ShoppingCartIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <span className="hidden sm:block">Add to cart</span>
+                </button>
+
+                <button>
+                  <HeartIcon className="h-6 w-6 text-secondary-accent hover:text-opacity-80" />
+                </button>
+              </div>
             </div>
-            <div className="flex space-x-2">
-              <button className="flex p-1 text-sm sm:text-base space-x-1 sm:px-4 sm:py-1 bg-primary-dark text-white rounded-md hover:bg-opacity-90">
-                <ShoppingCartIcon className="h-4 w-4 sm:h-5 sm:w-5" />
-                <span className="hidden sm:block">Add to cart</span>
-              </button>
-              <button>
-                <HeartIcon className="h-6 w-6 text-secondary-accent hover:text-opacity-80" />
-                {/* Filled heart, colored */}
-              </button>
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

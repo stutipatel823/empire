@@ -105,7 +105,7 @@ export default function HomeScreen() {
           products.map((product, index) => (
             <div
               key={product._id}
-              className={`py-10 bg-red-400 cursor-pointer border-b border-gray-300 ${
+              className={`py-10 cursor-pointer border-b border-gray-300 ${
                 index % 2 === 0 ? "border-r border-gray-300" : ""
               }`}
               onClick={(e)=>{navigate('/product')}}

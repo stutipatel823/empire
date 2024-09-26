@@ -77,7 +77,6 @@ function ProductPage() {
         </div>
       </div>
 
-      {/* Flex container for product details and add to cart */}
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start w-full mt-5">
         {/* Product Details */}
         <div className="w-full sm:w-1/2 mb-4 sm:mb-0 sm:pr-5">
@@ -104,7 +103,7 @@ function ProductPage() {
 
         {/* Add to Cart Button */}
         <div className="w-full sm:w-1/2 flex justify-end">
-          <button className="w-full sm:w-auto py-3 px-6 rounded-md bg-primary-dark text-white flex justify-center items-center font-thin">
+          <button className="w-full sm:w-auto py-3 px-6 rounded-md bg-primary-dark text-white flex justify-center items-center font-thin hover:bg-opacity-90">
             <p className="text-2xl -mt-1 mr-2">+</p>
             <p className="text-md">Add to cart</p>
           </button>
