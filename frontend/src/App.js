@@ -1,5 +1,5 @@
 import "./index.css";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation,  } from "react-router-dom";
 // pages & components
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
@@ -30,7 +30,7 @@ function Content() {
         <Routes>
           <Route path="/" element={<AuthPage />} />
           <Route path="/home" element={<HomePage />} />
-          <Route path="/product" element={<ProductPage />} />
+          <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/profile" element={<ProfilePage />} />

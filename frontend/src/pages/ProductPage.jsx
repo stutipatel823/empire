@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import ImageSlider from "../components/ImageSlider"; // Import the custom ImageSlider component
 import Rating from "@mui/material/Rating"; // Import Rating from MUI
 import Box from "@mui/material/Box"; // Import Box for styling
+import { useParams } from "react-router-dom";
 
 function ProductPage() {
   const [productDetails, setProductDetails] = useState(null);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const productId = "66f1334d16b3319853dd6f88"; // Example product ID
-
+  const { id } = useParams();
+  
   const fetchProductDetails = async (productId) => {
     const response = await fetch(`/api/products/${productId}`);
     if (!response.ok) throw new Error("Failed to fetch product data.");
@@ -19,7 +20,7 @@ function ProductPage() {
   useEffect(() => {
     const loadProductData = async () => {
       try {
-        const details = await fetchProductDetails(productId);
+        const details = await fetchProductDetails(id);
         setProductDetails(details);
       } catch (error) {
         setError(error.message);
@@ -28,7 +29,7 @@ function ProductPage() {
       }
     };
     loadProductData();
-  }, [productId]);
+  }, [id]);
 
   if (isLoading) return <div className="text-center">Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -40,7 +41,7 @@ function ProductPage() {
       style={{ height: "100vh", maxHeight: "calc(100vh - 100px)" }} // Ensures the main container takes up available height
     >
       <h1 className="text-2xl sm:text-3xl font-light">{productDetails.name}</h1>
-      <p className="text-xs sm:text-sm font-semibold sm:text-lg text-secondary-gray">
+      <p className="text-sm font-semibold sm:text-lg text-secondary-gray">
         ${productDetails.price}
       </p>
       {/* Use the custom ImageSlider component */}

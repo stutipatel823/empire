@@ -12,6 +12,7 @@ function Signup() {
   const handleSignup = async (event) => {
     event.preventDefault(); //Normally default action refreshes the page
     // Add your signup logic here
+    // Create a new user in database
     const name = `${firstName} ${lastName}`;
     const user = {name, email, password}
     const response = await fetch("/api/users", {
@@ -21,8 +22,17 @@ function Signup() {
         "Content-Type": "application/json",
       },
     });
-
     const json = await response.json();
+    // Create a new cart in database
+    const response2 = await fetch("/api/carts",{
+      method:"POST",
+      body:JSON.stringify({user:json._id}),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json2 = await response2.json()
+    console.log(json2);
 
     if (!response.ok) {
       setError(json.error);

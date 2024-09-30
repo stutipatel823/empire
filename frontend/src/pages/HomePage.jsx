@@ -1,56 +1,27 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"; // Updated import path for Heroicons v2
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom"; 
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"; 
+import { GlobalContext } from "../context/GlobalContext";
 
 export default function HomeScreen() {
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState("Best Sellers");
-  const [products, setProducts] = useState(null);
+  const { state, dispatch } = useContext(GlobalContext);
+
   useEffect(() => {
     const fetchProducts = async () => {
-      const response = await fetch('/api/products')
-      const json = await response.json();
-      if (response.ok){
-        setProducts(json);
-        console.log(products);
+      try {
+        const response = await fetch("/api/products");
+        if (!response.ok) throw new Error("Network response was not ok");
+        const json = await response.json();
+        dispatch({ type: 'SET_PRODUCTS', payload: json });
+      } catch (error) {
+        console.error("Failed to fetch products: ", error);
       }
-    }
-  
-    fetchProducts();
-  }, [])
+    };
 
-  // const products = [
-  //   {
-  //     id: "1",
-  //     name: "Chopard Happy",
-  //     price: 249.0,
-  //     image: "/assets/cluthes-gucci-marmount-mini-bag-black.avif",
-  //   },
-  //   {
-  //     id: "2",
-  //     name: "Chopard Happy",
-  //     price: 249.0,
-  //     image: "/assets/handbags-hermes-kelly-bag-orange.avif",
-  //   },
-  //   {
-  //     id: "3",
-  //     name: "Chopard Happy",
-  //     price: 249.0,
-  //     image: "/assets/handbangs-chanel-classic-flap-bag-beige.avif",
-  //   },
-  //   {
-  //     id: "4",
-  //     name: "Chopard Happy",
-  //     price: 249.0,
-  //     image: "/assets/totes-louis-vuitton-neverfull-mm-monogram-totes-red.avif",
-  //   },
-  //   {
-  //     id: "5",
-  //     name: "Chopard Happy",
-  //     price: 249.0,
-  //     image: "/assets/handbangs-chanel-classic-flap-bag-white.avif",
-  //   },
-  // ];
+    fetchProducts(); // Call the function here
+  }, [dispatch]);
 
   return (
     <div className="p-4">
@@ -67,62 +38,50 @@ export default function HomeScreen() {
       </div>
       {/* Button Group */}
       <div className="flex justify-between border-b-2 border-b-secondary-light-gray text-sm sm:text-xl">
-        <button
-          className={`sm:py-2 sm:px-4 ${
-            activeButton === "Best Sellers"
-              ? "border-b-4 border-b-primary-dark"
-              : "text-secondary-middle-gray"
-          }`}
-          onClick={() => setActiveButton("Best Sellers")}
-        >
-          Best Sellers
-        </button>
-        <button
-          className={` ${
-            activeButton === "Just Arrived"
-              ? "border-b-4 border-b-primary-dark"
-              : "text-secondary-middle-gray"
-          }`}
-          onClick={() => setActiveButton("Just Arrived")}
-        >
-          Just Arrived
-        </button>
-        <button
-          className={`sm:py-2 sm:px-4 ${
-            activeButton === "Trending"
-              ? "border-b-4 border-b-primary-dark"
-              : "text-secondary-middle-gray"
-          }`}
-          onClick={() => setActiveButton("Trending")}
-        >
-          Trending
-        </button>
+        {["Best Sellers", "Just Arrived", "Trending"].map((label) => (
+          <button
+            key={label}
+            className={`sm:py-2 sm:px-4 ${
+              activeButton === label ? "border-b-4 border-b-primary-dark" : "text-secondary-middle-gray"
+            }`}
+            onClick={() => setActiveButton(label)}
+          >
+            {label}
+          </button>
+        ))}
       </div>
 
       {/* Product Grid */}
       <div className="grid grid-cols-2">
-        {products &&
-          products.map((product, index) => (
+        {state.products.length === 0 ? (
+          <p>No items...</p>
+        ) : (
+          state.products.map((product, index) => (
             <div
-              key={product._id}
+              key={product._id} // Use product ID as key
               className={`py-10 cursor-pointer border-b border-gray-300 ${
                 index % 2 === 0 ? "border-r border-gray-300" : ""
               }`}
-              onClick={(e)=>{navigate('/product')}}
+              onClick={() => navigate(`/product/${product._id}`)}
             >
               <div className="ml-5">
                 <p className="text-lg sm:text-2xl font-light">{product.name}</p>
-                <p className=" text-md sm:text-lg text-secondary-gray font-semibold">
+                <p className="text-md sm:text-lg text-secondary-gray font-semibold">
                   ${product.price}
                 </p>
-                <img
-                  src={`/assets/${product.images[0]}`}
-                  alt={product.name}
-                  className="h-28 sm:h-48 object-contain my-2 sm:w-fit"
-                />
+                {product.images && product.images.length > 0 ? (
+                  <img
+                    src={`/assets/${product.images[0]}`}
+                    alt={product.name}
+                    className="h-28 sm:h-48 object-contain my-2 sm:w-fit"
+                  />
+                ) : (
+                  <p>No image available</p> // Fallback if no images exist
+                )}
               </div>
             </div>
-          ))}
+          ))
+        )}
       </div>
     </div>
   );
