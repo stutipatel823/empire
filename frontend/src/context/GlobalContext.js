@@ -25,10 +25,6 @@ const globalReducer = (state, action) => {
       return { ...state, cart: state.cart.filter(item => item._id !== action.payload) };
     case 'SET_WISHLIST':
       return { ...state, wishlist: action.payload };
-    case 'SET_LOADING':
-      return { ...state, loading: action.payload };
-    case 'SET_ERROR':
-      return { ...state, error: action.payload };
     default:
       return state;
   }

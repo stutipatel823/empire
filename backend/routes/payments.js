@@ -7,7 +7,8 @@ const {
   deletePayment,
   updatePayment,
 } = require("../controllers/paymentControllers");
-
+const requireAuth = require('../middleware/requireAuth')
+router.use(requireAuth);
 // GET all carts
 router.get("/", getPayments);
 // GET a single cart

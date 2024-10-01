@@ -7,7 +7,8 @@ const {
   deleteReview,
   updateReview,
 } = require("../controllers/reviewControllers");
-
+const requireAuth = require('../middleware/requireAuth')
+router.use(requireAuth);
 // GET all products
 router.get("/", getReviews);
 // GET a single product

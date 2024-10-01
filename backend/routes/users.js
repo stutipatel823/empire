@@ -6,7 +6,16 @@ const {
   createUser,
   deleteUser,
   updateUser,
+  loginUser,
+  signupUser,
 } = require("../controllers/userControllers");
+
+// login route (sending data to server using post method)
+router.post('/login',loginUser);
+
+// signup route
+router.post('/signup',signupUser);
+
 
 // GET all users
 router.get("/", getUsers);

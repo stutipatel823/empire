@@ -1,27 +1,30 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom"; 
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"; 
-import { GlobalContext } from "../context/GlobalContext";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { useProductContext } from "../context/ProductContext";
+import { fetchProducts } from "../api/productService";
 
 export default function HomeScreen() {
+  const { state, dispatch } = useProductContext();
+  const { user } = useAuthContext();
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState("Best Sellers");
-  const { state, dispatch } = useContext(GlobalContext);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("/api/products");
-        if (!response.ok) throw new Error("Network response was not ok");
-        const json = await response.json();
-        dispatch({ type: 'SET_PRODUCTS', payload: json });
-      } catch (error) {
-        console.error("Failed to fetch products: ", error);
+    const loadProducts = async () => {
+      if (user && user.token) {
+        try {
+          const products = await fetchProducts(user.token); // Await the product fetch
+          dispatch({ type: "SET_PRODUCTS", payload: products }); // Dispatch the fetched products
+        } catch (error) {
+          console.error("Error fetching products: ", error); // Log any errors
+        }
       }
     };
-
-    fetchProducts(); // Call the function here
-  }, [dispatch]);
+    
+    loadProducts(); // Call the loadProducts function
+  }, [dispatch, user]);
 
   return (
     <div className="p-4">
@@ -42,7 +45,9 @@ export default function HomeScreen() {
           <button
             key={label}
             className={`sm:py-2 sm:px-4 ${
-              activeButton === label ? "border-b-4 border-b-primary-dark" : "text-secondary-middle-gray"
+              activeButton === label
+                ? "border-b-4 border-b-primary-dark"
+                : "text-secondary-middle-gray"
             }`}
             onClick={() => setActiveButton(label)}
           >
@@ -53,7 +58,7 @@ export default function HomeScreen() {
 
       {/* Product Grid */}
       <div className="grid grid-cols-2">
-        {state.products.length === 0 ? (
+        {Array.isArray(state.products) && state.products.length === 0 ? (
           <p>No items...</p>
         ) : (
           state.products.map((product, index) => (

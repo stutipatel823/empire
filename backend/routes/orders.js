@@ -7,7 +7,8 @@ const {
   deleteOrder,
   updateOrder,
 } = require("../controllers/orderControllers");
-
+const requireAuth = require('../middleware/requireAuth')
+router.use(requireAuth);
 // GET all carts
 router.get("/", getOrders);
 // GET a single cart

@@ -7,7 +7,8 @@ const {
   deleteWishlist,
   updateWishlist,
 } = require("../controllers/wishlistControllers");
-
+const requireAuth = require('../middleware/requireAuth')
+router.use(requireAuth);
 // GET all wishlists
 router.get("/", getWishlists);
 // GET a single wishlist

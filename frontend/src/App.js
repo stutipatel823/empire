@@ -1,5 +1,5 @@
 import "./index.css";
-import { BrowserRouter, Routes, Route, useLocation,  } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 // pages & components
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
@@ -23,12 +23,16 @@ function App() {
 function Content() {
   const location = useLocation();
 
+  const shouldShowNavbar = !["/", "/login", "/signup"].includes(location.pathname);
+
   return (
     <>
-      {location.pathname !== "/" && <Navbar />}
+      {shouldShowNavbar && <Navbar />}
       <div className="pages">
         <Routes>
           <Route path="/" element={<AuthPage />} />
+          <Route path="/login" element={<AuthPage />} />
+          <Route path="/signup" element={<AuthPage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />

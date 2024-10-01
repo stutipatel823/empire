@@ -8,6 +8,9 @@ const {
   updateProduct,
 } = require("../controllers/productControllers");
 
+const requireAuth = require('../middleware/requireAuth')
+router.use(requireAuth);
+
 // GET all products
 router.get("/", getProducts);
 // GET a single product

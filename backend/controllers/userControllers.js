@@ -1,5 +1,37 @@
 const UserModel = require("../models/UserModel");
+const jwt = require("jsonwebtoken");
 
+const createToken = (_id) => {
+  return  jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
+};
+
+// login user
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await UserModel.login(email, password);
+    // create a token
+    const token = createToken(user._id);
+    res.status(200).json({email, token });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// signup user
+const signupUser = async (req, res) => {
+  const { name, email, password } = req.body;
+
+  try {
+    const user = await UserModel.signup(name, email, password);
+    // create a token
+    const token = createToken(user._id);
+    res.status(200).json({ _id: user._id, email, token });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 // get all users
 const getUsers = async (req, res) => {
@@ -42,11 +74,11 @@ const deleteUser = async (req, res) => {
 // update a user
 const updateUser = async (req, res) => {
   const { id } = req.params;
-  const user = await UserModel.findByIdAndUpdate({ _id: id },{...req.body})
-    if(!user) {
-        res.status(400).json({error:"User not found"});
-    }
-    res.status(200).json(user);
+  const user = await UserModel.findByIdAndUpdate({ _id: id }, { ...req.body });
+  if (!user) {
+    res.status(400).json({ error: "User not found" });
+  }
+  res.status(200).json(user);
 };
 
 module.exports = {
@@ -55,4 +87,6 @@ module.exports = {
   createUser,
   deleteUser,
   updateUser,
+  loginUser,
+  signupUser,
 };

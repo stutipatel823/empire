@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require('express');
 const mongoose = require('mongoose');
 
+const usersRoutes = require('./routes/users');
 const adminsRoutes = require('./routes/admins');
 const cartsRoutes = require('./routes/carts');
 const categoriesRoutes = require('./routes/categories');
@@ -9,7 +10,6 @@ const ordersRoutes = require('./routes/orders');
 const paymentsRoutes = require('./routes/payments');
 const productsRoutes = require('./routes/products');
 const reviewsRoutes = require('./routes/reviews');
-const usersRoutes = require('./routes/users');
 const wishlistsRoutes = require('./routes/wishlists');
 
 // express app
@@ -25,6 +25,7 @@ app.use((req, res, next) => { // prints all requests
 });
 
 // routes
+app.use('/api/users',usersRoutes);
 app.use('/api/admins',adminsRoutes);
 app.use('/api/carts',cartsRoutes);
 app.use('/api/categories',categoriesRoutes);
@@ -32,11 +33,7 @@ app.use('/api/orders',ordersRoutes);
 app.use('/api/payments',paymentsRoutes);
 app.use('/api/products',productsRoutes);
 app.use('/api/reviews',reviewsRoutes);
-app.use('/api/users',usersRoutes);
 app.use('/api/wishlists',wishlistsRoutes);
-
-
-
 
 
 // connect to db

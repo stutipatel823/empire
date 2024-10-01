@@ -6,10 +6,20 @@ const {
   createCart,
   deleteCart,
   updateCart,
+  getCartbyUserId,
+  addItemToCart
 } = require("../controllers/cartControllers");
 
+// require Authentication to access api endpoints
+const requireAuth = require('../middleware/requireAuth')
+router.use(requireAuth);
+
+// GET a cart based on userId
+router.get("/", getCartbyUserId);
+
 // GET all carts
-router.get("/", getCarts);
+router.get("/admin/", getCarts);
+
 // GET a single cart
 router.get("/:id", getCart);
 
@@ -20,6 +30,10 @@ router.post("/", createCart);
 router.delete("/:id", deleteCart);
 
 // UPDATE a cart
-router.patch("/:id", updateCart);
+router.patch("/", updateCart);
+
+// POST a new cart
+router.post("/items", addItemToCart);
+
 
 module.exports = router;

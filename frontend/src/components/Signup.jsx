@@ -1,51 +1,15 @@
 import React, { useState } from "react";
-import {useNavigate} from 'react-router-dom';
-
+import { useSignup } from "../hooks/useSignup";
 function Signup() {
-  const navigate = useNavigate();
-  const [error, setError] = useState(null);
+  const { signup, isLoading, error } = useSignup();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSignup = async (event) => {
-    event.preventDefault(); //Normally default action refreshes the page
-    // Add your signup logic here
-    // Create a new user in database
-    const name = `${firstName} ${lastName}`;
-    const user = {name, email, password}
-    const response = await fetch("/api/users", {
-      method: "POST",
-      body: JSON.stringify(user),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const json = await response.json();
-    // Create a new cart in database
-    const response2 = await fetch("/api/carts",{
-      method:"POST",
-      body:JSON.stringify({user:json._id}),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const json2 = await response2.json()
-    console.log(json2);
-
-    if (!response.ok) {
-      setError(json.error);
-      alert(error);
-    } else {
-      setError(null);
-      console.log("new user added.");
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPassword("");
-      navigate('/home'); 
-    }
+    event.preventDefault(); // Normally default action refreshes the page
+    await signup(`${firstName} ${lastName}`, email, password);
   };
 
   return (
@@ -56,7 +20,7 @@ function Signup() {
       <input
         type="text"
         placeholder="First Name"
-        className="border border-secondary-middle-gray bg-white p-2 w-full mb-4 rounded-md focus:outline-none focus:border-secondary-accent"
+        className="border border-secondary-middle-gray bg-white p-2 w-full mb-4 rounded-md focus:outline-none focus:border-primary-dark"
         value={firstName}
         onChange={(e) => setFirstName(e.target.value)}
         required
@@ -64,7 +28,7 @@ function Signup() {
       <input
         type="text"
         placeholder="Last Name"
-        className="border border-secondary-middle-gray bg-white p-2 w-full mb-4 rounded-md focus:outline-none focus:border-secondary-accent"
+        className="border border-secondary-middle-gray bg-white p-2 w-full mb-4 rounded-md focus:outline-none focus:border-primary-dark"
         value={lastName}
         onChange={(e) => setLastName(e.target.value)}
         required
@@ -72,7 +36,7 @@ function Signup() {
       <input
         type="email"
         placeholder="Email"
-        className="border border-secondary-middle-gray bg-white p-2 w-full mb-4 rounded-md focus:outline-none focus:border-secondary-accent"
+        className="border border-secondary-middle-gray bg-white p-2 w-full mb-4 rounded-md focus:outline-none focus:border-primary-dark"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
@@ -80,17 +44,19 @@ function Signup() {
       <input
         type="password"
         placeholder="Password"
-        className="border border-secondary-middle-gray bg-white p-2 w-full mb-4 rounded-md focus:outline-none focus:border-secondary-accent"
+        className="border border-secondary-middle-gray bg-white p-2 w-full mb-4 rounded-md focus:outline-none focus:border-primary-dark"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
       />
       <button
+        disabled={isLoading}
         type="submit"
         className="bg-primary-dark hover:bg-opacity-90 text-white py-2 rounded-md w-full mt-5"
       >
         Create Account
       </button>
+      {error && <div className="error">{error}</div>}
     </form>
   );
 }

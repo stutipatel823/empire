@@ -7,7 +7,8 @@ const {
   deleteCategory,
   updateCategory,
 } = require("../controllers/categoryControllers");
-
+const requireAuth = require('../middleware/requireAuth')
+router.use(requireAuth);
 // GET all products
 router.get("/", getCategories);
 // GET a single product

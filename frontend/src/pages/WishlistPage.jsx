@@ -68,17 +68,24 @@
   "updatedAt": "2024-09-23T09:22:21.062Z"
 }
 */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ShoppingCartIcon, HeartIcon } from "@heroicons/react/24/solid"; // Use the solid version for filled heart
-
+import { GlobalContext } from "../context/GlobalContext";
 export default function WishlistScreen() {
-  const [wishlistItems, setWishlistItems] = useState([]);
-  const [products, setProducts] = useState([]);
+  const [state, dispatch] = useContext(GlobalContext);
+  const { wishlist, products, user, loading, error } = state; // Destructure from global state
 
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [itemToDelete, setItemToDelete] = useState(null);
+  // const [showAlert, setShowAlert] = useState(false);
+  // const [alertInfo, setAlertInfo] = useState({ message: "", status: true });
 
-  const userId = "66f1334e16b3319853dd6fac";
+  const userId = user?._id || "66f1334e16b3319853dd6fac"; // Get userId from context or fallback
+  // const [wishlistItems, setWishlistItems] = useState([]);
+  // const [products, setProducts] = useState([]);
+
+  // const [error, setError] = useState("");
+  // const [isLoading, setIsLoading] = useState(true);
 
   const fetchWishlistId = async (userId) => {
     const response = await fetch(`/api/users/${userId}`);
@@ -102,34 +109,45 @@ export default function WishlistScreen() {
   useEffect(() => {
     const loadCartData = async () => {
       try {
-        const cartId = await fetchWishlistId(userId);
-        const items = await fetchWishlistItems(cartId);
-        setWishlistItems(items);
+        const wishlistId = await fetchWishlistId(userId);
+        const items = await fetchWishlistItems(wishlistId);
+        
+        // Dispatch the cart items to global state
+        dispatch({ type: "SET_WISHLIST", payload: items });
+        
+        // setWishlistItems(items);
 
         // Fetch product details for each cart item
         const productPromises = items.map((item) => fetchProduct(item.product)); // all fetch requests/promises for each item runs concurrently
         const productDetails = await Promise.all(productPromises); // waits for all fetch requests/promises to be resolved
-        setProducts(productDetails);
+        
+        // Dispatch the fetched products to global state
+        dispatch({type:'SET_PRODUCTS', payload:productDetails})
+        // setProducts(productDetails);
+
         console.log(products);
       } catch (error) {
-        setError(error.message); // Handle errors
+        dispatch({type:'SET_ERROR', payload:error.message})
+        // setError(error.message); // Handle errors
+
       } finally {
-        setIsLoading(false);
+        dispatch({type:'SET_LOADING', payload:false})
+        // setIsLoading(false);
       }
     };
     loadCartData();
   }, [userId]);
 
-  if (isLoading) return <div className="text-center">Loading...</div>; // Loading state
+  if (loading) return <div className="text-center">Loading...</div>; // Loading state
   if (error) return <div>Error: {error}</div>;
-  if (!wishlistItems.length) return <div>Your wishlist is empty.</div>;
+  if (!wishlist.length) return <div>Your wishlist is empty.</div>;
 
   return (
     <div className="p-1 sm:p-4 min-h-screen">
       <h1 className="text-3xl font-bold text-center mb-6">Wishlist ❤️</h1>
       <div className="sm:space-y-4">
-        {wishlistItems &&
-          wishlistItems.map((item, index) => (
+        {wishlist &&
+          wishlist.map((item, index) => (
             <div
               className="flex items-center justify-between p-3 sm:p-4 border-y-secondary-light-gray border-b"
               key={item._id} // Use a unique identifier if available
