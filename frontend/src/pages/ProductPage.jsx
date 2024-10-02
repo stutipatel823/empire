@@ -9,17 +9,17 @@ import { useCartContext } from "../context/CartContext";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import { fetchProduct } from "../api/productService";
-import { updateCart } from "../api/cartService";
-import { fetchCart } from "../api/cartService";
-import { addItemToCart } from "../api/cartService";
+import { fetchCart, addItemToCart, updateCart } from "../api/cartService";
+import { addItemToWishlist, deleteItemFromWishlist, fetchWishlist } from "../api/wishlistService";
 
 function ProductPage() {
   const { user } = useAuthContext();
   const { state, dispatch } = useCartContext();
-  const { cart, products } = state; // user's cart details
+  const { cart } = state || {}; // Safeguard cart, fallback to an empty object
+  const { state: wishlistState, dispatch: wishlistDispatch } = useCartContext();
+  const { wishlist = [] } = wishlistState || {}; // Safeguard wishlist with default value
   const [isSelected, setIsSelected] = useState(false);
   const [productDetails, setProductDetails] = useState(null);
-  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [quantity, setQuantity] = useState(1); // State for quantity
   const { id } = useParams();
@@ -32,21 +32,32 @@ function ProductPage() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const json = await fetchProduct(id, user.token);
-        setProductDetails(json);
+        const product = await fetchProduct(id, user.token);
+        setProductDetails(product);
 
-        const json2 = await fetchCart(user.token); // Fetch cart
-        dispatch({ type: "SET_CART", payload: json2.cartItems });
+        const cartResponse = await fetchCart(user.token); // Fetch cart
+        dispatch({ type: "SET_CART", payload: cartResponse.cartItems });
+
+        const wishlistResponse = await fetchWishlist(user.token); // Fetch wishlist
+        wishlistDispatch({ type: "SET_WISHLIST", payload: wishlistResponse.wishlistItems });
 
         // Check if the item exists in the cart and set the quantity
-        const itemExists = json2.cartItems.find(
-          (item) => item.product === json._id
+        const itemExistsInCart = cartResponse.cartItems.find(
+          (item) => item.product === product._id
         );
-        if (itemExists) {
-          setQuantity(itemExists.quantity);
+        if (itemExistsInCart) {
+          setQuantity(itemExistsInCart.quantity);
+        }
+
+        // Check if the item exists in the wishlist and set the heart icon accordingly
+        const itemExistsInWishlist = wishlistResponse.wishlistItems.find(
+          (item) => item.product === product._id
+        );
+        if (itemExistsInWishlist) {
+          setIsSelected(true);
         }
       } catch (error) {
-        setError(error.message);
+        showAlert(error.message, false);
       } finally {
         setIsLoading(false);
       }
@@ -55,7 +66,7 @@ function ProductPage() {
     if (user && user.token) {
       loadData();
     }
-  }, [id, user, dispatch]);
+  }, [id, user, dispatch, wishlistDispatch]);
 
   async function updateQuantity(e) {
     const new_quantity = Number(e.target.value);
@@ -80,26 +91,45 @@ function ProductPage() {
 
   async function handleAddToCart() {
     if (cart.find((item) => item.product === productDetails._id)) {
-      showAlert("Item added to cart", true);
+      showAlert("Item already in cart", true);
     } else {
-      const cartItem = { product: productDetails._id, quantity: quantity };
+      const cartItem = { product: productDetails._id, quantity };
       const response = await addItemToCart(cartItem, user.token);
 
-      // Here response is the JSON data returned from the server
       if (response.error) {
         showAlert(response.error, false);
       } else {
+        dispatch({ type: "ADD_ITEM", payload: cartItem });
         showAlert("Item added to cart", true);
       }
     }
   }
 
-  function toggleHeart() {
-    setIsSelected(!isSelected);
+  async function toggleWishlistItem() {
+    setIsSelected((prev) => !prev);
+
+    if (wishlist) {
+      if (isSelected) {
+        // Remove from wishlist
+        await deleteItemFromWishlist(productDetails._id, user.token);
+        const updatedWishlist = wishlist.filter(
+          (item) => item.product !== productDetails._id
+        );
+        wishlistDispatch({ type: "SET_WISHLIST", payload: updatedWishlist });
+      } else {
+        // Add to wishlist
+        const updatedWishlist = await addItemToWishlist(
+          productDetails._id,
+          user.token
+        );
+        wishlistDispatch({ type: "SET_WISHLIST", payload: updatedWishlist });
+      }
+    } else {
+      console.error("Wishlist is undefined or empty");
+    }
   }
 
   if (isLoading) return <div className="text-center">Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
   if (!productDetails) return <div>No product details.</div>;
 
   return (
@@ -119,7 +149,6 @@ function ProductPage() {
       <div className="w-full mt-2 py-5 border-y border-secondary-light-gray flex justify-between items-center sm:justify-between">
         <div className="flex items-center sm:space-x-2">
           <p>Qty:</p>
-
           <select
             value={quantity} // Use quantity state
             className="border border-secondary-light-gray rounded-full py-1 px-2 sm:px-5 flex justify-center"
@@ -132,7 +161,7 @@ function ProductPage() {
             ))}
           </select>
 
-          <button onClick={toggleHeart}>
+          <button onClick={toggleWishlistItem}>
             {isSelected ? (
               <HeartSolid className="mx-2 h-6 w-6 text-secondary-accent " />
             ) : (
