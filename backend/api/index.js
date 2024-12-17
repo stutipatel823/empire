@@ -2,15 +2,15 @@ require("dotenv").config();
 const express = require('express');
 const mongoose = require('mongoose');
 
-const usersRoutes = require('./routes/users');
-const adminsRoutes = require('./routes/admins');
-const cartsRoutes = require('./routes/carts');
-const categoriesRoutes = require('./routes/categories');
-const ordersRoutes = require('./routes/orders');
-const paymentsRoutes = require('./routes/payments');
-const productsRoutes = require('./routes/products');
-const reviewsRoutes = require('./routes/reviews');
-const wishlistsRoutes = require('./routes/wishlists');
+const usersRoutes = require('../routes/users');
+const adminsRoutes = require('../routes/admins');
+const cartsRoutes = require('../routes/carts');
+const categoriesRoutes = require('../routes/categories');
+const ordersRoutes = require('../routes/orders');
+const paymentsRoutes = require('../routes/payments');
+const productsRoutes = require('../routes/products');
+const reviewsRoutes = require('../routes/reviews');
+const wishlistsRoutes = require('../routes/wishlists');
 
 // express app
 const app = express();
