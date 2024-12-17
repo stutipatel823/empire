@@ -1,5 +1,7 @@
 // /api/cartService.js
-const BASE_URL = "/api/carts"; // Base URL for the cart API
+const API_URL = process.env.REACT_APP_API_URL;
+
+const BASE_URL = `${API_URL}/api/carts`; // Base URL for the cart API
 
 export const fetchCart = async (token) => {
   try {

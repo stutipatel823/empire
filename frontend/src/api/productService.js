@@ -1,7 +1,9 @@
 // src/api/productService.js
+const API_URL = process.env.REACT_APP_API_URL;
+
 export const fetchProduct = async (product_id, token) => {
   try {
-    const response = await fetch(`/api/products/${product_id}`, {
+    const response = await fetch(`${API_URL}/api/products/${product_id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -13,7 +15,7 @@ export const fetchProduct = async (product_id, token) => {
 
 export const fetchProducts = async (token) => {// fetch all products in database
   try {
-    const response = await fetch("/api/products", {
+    const response = await fetch(`${API_URL}/api/products`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const json = await response.json();

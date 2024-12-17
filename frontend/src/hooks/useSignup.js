@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
 
 export const useSignup = () => {
+  const API_URL = process.env.REACT_APP_API_URL;
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { dispatch } = useAuthContext();
@@ -12,7 +13,7 @@ export const useSignup = () => {
 
     try {
       // Step 1: Send request to create a user
-      const response = await fetch("/api/users/signup", {
+      const response = await fetch(`${API_URL}/api/users/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,7 +29,7 @@ export const useSignup = () => {
       const token = json.token;
       
       // Step 2: If user created successfully, create a cart
-      const cartResponse = await fetch("/api/carts/admin", {
+      const cartResponse = await fetch(`${API_URL}/api/carts/admin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,7 +44,7 @@ export const useSignup = () => {
       }
 
       // Step 4: If user and cart are created successfully, create a wishlist
-      const wishlistResponse = await fetch("/api/wishlists/admin",{
+      const wishlistResponse = await fetch(`${API_URL}/api/wishlists/admin`,{
         method: "POST",
         headers: {
           "Content-Type": "application/json",

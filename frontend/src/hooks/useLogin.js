@@ -1,4 +1,8 @@
+require("dotenv").config();
+
 import { useAuthContext } from "./useAuthContext";
+const API_URL = process.env.REACT_APP_API_URL;
+
 import { useState } from "react";
 export const useLogin = () => {
   const { dispatch } = useAuthContext();
@@ -9,7 +13,7 @@ export const useLogin = () => {
     setIsloading(true);
     setError(null);
     
-    const response = await fetch("api/users/login", {
+    const response = await fetch(`${API_URL}/api/users/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),

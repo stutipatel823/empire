@@ -1,4 +1,5 @@
-const BASE_URL = "/api/wishlists/";
+const API_URL = process.env.REACT_APP_API_URL;
+const BASE_URL = `${API_URL}/api/wishlists/`;
 export const fetchWishlist = async (token) => {
   try {
     const response = await fetch(BASE_URL, {
