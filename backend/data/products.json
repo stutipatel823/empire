@@ -5,14 +5,21 @@
     "category": "Clutches",
     "price": 1200,
     "stock": 10,
-    "images": ["clutches-gucci-marmount-mini-bag-black.avif"],
+    "images": [
+      "clutches-gucci-marmount-mini-bag-black-1.avif",
+      "clutches-gucci-marmount-mini-bag-black-2.avif",
+      "clutches-gucci-marmount-mini-bag-black-3.avif",
+      "clutches-gucci-marmount-mini-bag-black-4.avif"
+    ],
     "color": "Black",
     "ratings": [],
-    "averageRating": 0,
-    "numReviews": 0
+    "averageRating": 2.5,
+    "numReviews": 0,
+    "description": "A luxurious mini bag by Gucci.",
+    "displayCategory": "BestSellers"
   },
   {
-    "name": "Hermes Kelly Bag",
+    "name": "Hermes Kelly Bag (Orange)",
     "brand": "Hermes",
     "category": "Handbags",
     "price": 8000,
@@ -20,8 +27,10 @@
     "images": ["handbags-hermes-kelly-bag-orange.avif"],
     "color": "Orange",
     "ratings": [],
-    "averageRating": 0,
-    "numReviews": 0
+    "averageRating": 2.5,
+    "numReviews": 0,
+    "description": "The iconic Hermes Kelly Bag.",
+    "displayCategory": "JustArrived"
   },
   {
     "name": "Chanel Classic Flap Bag (Beige)",
@@ -29,11 +38,13 @@
     "category": "Handbags",
     "price": 3500,
     "stock": 8,
-    "images": ["handbangs-chanel-classic-flap-bag-beige1.avif"],
+    "images": ["handbags-chanel-classic-flap-bag-beige.avif"],
     "color": "Beige",
     "ratings": [],
-    "averageRating": 0,
-    "numReviews": 0
+    "averageRating": 2.5,
+    "numReviews": 0,
+    "description": "A timeless Chanel Classic Flap Bag.",
+    "displayCategory": "Trending"
   },
   {
     "name": "Chanel Classic Flap Bag (White)",
@@ -41,11 +52,13 @@
     "category": "Handbags",
     "price": 3600,
     "stock": 6,
-    "images": ["handbangs-chanel-classic-flap-bag-white.avif"],
+    "images": ["handbags-chanel-classic-flap-bag-white.avif"],
     "color": "White",
     "ratings": [],
-    "averageRating": 0,
-    "numReviews": 0
+    "averageRating": 2.5,
+    "numReviews": 0,
+    "description": "A timeless Chanel Classic Flap Bag in white.",
+    "displayCategory": "BestSellers"
   },
   {
     "name": "Louis Vuitton Neverfull MM Monogram",
@@ -53,14 +66,16 @@
     "category": "Totes",
     "price": 1500,
     "stock": 15,
-    "images": ["totes-louis-vuitton-neverfull-mm-monogram-totes-red1.avif"],
-    "color": "Red",
+    "images": ["totes-louis-vuitton-neverfull-mm-monogram-totes-brown.avif"],
+    "color": "Brown",
     "ratings": [],
-    "averageRating": 0,
-    "numReviews": 0
+    "averageRating": 2.5,
+    "numReviews": 0,
+    "description": "The versatile Neverfull MM Monogram by Louis Vuitton.",
+    "displayCategory": "JustArrived"
   },
   {
-    "name": "Prada Saffiano Leather Tote",
+    "name": "Prada Saffiano Leather Tote (Black)",
     "brand": "Prada",
     "category": "Totes",
     "price": 2000,
@@ -68,7 +83,65 @@
     "images": ["totes-prada-saffiano-leather-tote-black.avif"],
     "color": "Black",
     "ratings": [],
-    "averageRating": 0,
-    "numReviews": 0
+    "averageRating": 2.5,
+    "numReviews": 0,
+    "description": "An elegant Saffiano Leather Tote by Prada.",
+    "displayCategory": "Trending"
+  },
+  {
+    "name": "Louis Vuitton On The Go (Red)",
+    "brand": "Louis Vuitton",
+    "category": "Handbags",
+    "price": 2000,
+    "stock": 12,
+    "images": ["handbag-louis-vuitton-onthego-bag-red.png"],
+    "color": "Red",
+    "ratings": [],
+    "averageRating": 2.5,
+    "numReviews": 0,
+    "description": "A bold On The Go Bag by Louis Vuitton.",
+    "displayCategory": "BestSellers"
+  },
+  {
+    "name": "Louis Vuitton On The Go (Pink)",
+    "brand": "Louis Vuitton",
+    "category": "Handbags",
+    "price": 2000,
+    "stock": 12,
+    "images": ["handbag-louis-vuitton-onthego-bag-pink.png"],
+    "color": "Pink",
+    "ratings": [],
+    "averageRating": 2.5,
+    "numReviews": 0,
+    "description": "A stylish On The Go Bag by Louis Vuitton.",
+    "displayCategory": "BestSellers"
+  },
+  {
+    "name": "Louis Vuitton Keepall Bandouliere (Brown)",
+    "brand": "Louis Vuitton",
+    "category": "Handbags",
+    "price": 2000,
+    "stock": 12,
+    "images": ["handbag-louis-vuitton-keepall-bandouliere-brown.png"],
+    "color": "Brown",
+    "ratings": [],
+    "averageRating": 2.5,
+    "numReviews": 0,
+    "description": "A functional Keepall Bandouliere by Louis Vuitton.",
+    "displayCategory": "BestSellers"
+  },
+  {
+    "name": "Louis Vuitton On The Go (Blue)",
+    "brand": "Louis Vuitton",
+    "category": "Handbags",
+    "price": 2000,
+    "stock": 12,
+    "images": ["handbag-louis-vuitton-onthego-bag-blue.png"],
+    "color": "Blue",
+    "ratings": [],
+    "averageRating": 2.5,
+    "numReviews": 0,
+    "description": "A chic On The Go Bag by Louis Vuitton.",
+    "displayCategory": "BestSellers"
   }
 ]

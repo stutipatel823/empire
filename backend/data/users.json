@@ -2,31 +2,31 @@
   {
     "name": "Jane Doe",
     "email": "jane@example.com",
-    "password": "jane1",
+    "password": "$2b$10$6B0UoJGYvSmBbnzQYvyzQek/KzApC7yCwYrA0MN9JP7tk1cRVb9ji",
     "isAdmin": false
   },
   {
     "name": "John Smith",
     "email": "john@example.com",
-    "password": "john1",
+    "password": "$2b$10$6B0UoJGYvSmBbnzQYvyzQek/KzApC7yCwYrA0MN9JP7tk1cRVb9ji",
     "isAdmin": false
   },
   {
     "name": "Alice Johnson",
     "email": "alice@example.com",
-    "password": "alice1",
+    "password": "$2b$10$6B0UoJGYvSmBbnzQYvyzQek/KzApC7yCwYrA0MN9JP7tk1cRVb9ji",
     "isAdmin": false
   },
   {
     "name": "Bob Brown",
     "email": "bob@example.com",
-    "password": "bob1",
+    "password": "$2b$10$6B0UoJGYvSmBbnzQYvyzQek/KzApC7yCwYrA0MN9JP7tk1cRVb9ji",
     "isAdmin": false
   },
   {
     "name": "Carol White",
     "email": "carol@example.com",
-    "password": "carol1",
+    "password": "$2b$10$6B0UoJGYvSmBbnzQYvyzQek/KzApC7yCwYrA0MN9JP7tk1cRVb9ji",
     "isAdmin": false
   }
 ]

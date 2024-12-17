@@ -93,11 +93,20 @@ const getWishlist = async (req, res) => {
 
 // create a new wishlist (admin functionality)
 const createWishlist = async (req, res) => {
+  const {userID, wishlistItems=[]} = req.body;
   try {
-    const wishlist = await WishlistModel.create(req.body);
-    res.status(200).json(wishlist);
+    if(!userID) return res.status(400).json({error: "User ID is required"});
+
+    // Map wishlistItems to ensure all items have the required structure
+    const formattedWishListItems = wishlistItems.map(({ product}) => ({
+      product
+    }));
+
+    // Create new wishlist
+    const newWishlist = await WishlistModel.create({ user: userID, wishlistItems: formattedWishListItems });
+    res.status(201).json(newWishlist);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 

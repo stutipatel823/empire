@@ -53,6 +53,11 @@ const ProductSchema = new Schema({
     default: 0,
   },
   description: { type: String, required: true }, // Add this line
+  displayCategory: {
+    type: String,
+    enum: ["BestSellers", "JustArrived", "Trending", "None"],
+    default: "None", // Default value if not specified
+  },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Product', ProductSchema);

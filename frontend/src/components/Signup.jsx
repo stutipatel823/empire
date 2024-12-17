@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useSignup } from "../hooks/useSignup";
+import { useNavigate } from "react-router-dom";
+
 function Signup() {
+  const navigate = useNavigate();
   const { signup, isLoading, error } = useSignup();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -9,9 +12,14 @@ function Signup() {
 
   const handleSignup = async (event) => {
     event.preventDefault(); // Normally default action refreshes the page
-    await signup(`${firstName} ${lastName}`, email, password);
+    const success = await signup(`${firstName} ${lastName}`, email, password);
+    console.log(success);
+    if (success) {
+      console.log("Signup successful, navigating to home...");
+      navigate("/home");
+    }
   };
-
+  
   return (
     <form
       onSubmit={handleSignup}

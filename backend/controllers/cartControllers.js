@@ -167,11 +167,11 @@ const updateCart = async (req, res) => {
 
 
 module.exports = {
-  getCarts,
-  getCart,
-  createCart,
-  deleteCart,
-  updateCart,
+  getCarts,//(admin functionality)
+  getCart,//(admin functionality)
+  createCart,//(admin functionality)
+  deleteCart,//(admin functionality)
+  updateCart,//(admin functionality)
   getCartbyUserId,
   addItemToCart,
   updateCartItems,

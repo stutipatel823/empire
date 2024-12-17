@@ -15,7 +15,7 @@ export const AuthContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, { user: null });
 
-  useEffect(() => { // check is user is logged in
+  useEffect(() => { // check if user is logged in
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
       dispatch({ type: "LOGIN", payload: user });
